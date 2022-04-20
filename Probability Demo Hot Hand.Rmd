@@ -1,0 +1,125 @@
+---
+title: "Jurisprudence and Social Policy - Math Camp 2016"
+author: "Aniket Kesari"
+date: "August 3, 2016"
+output:
+  beamer_presentation: null
+  incremental: no
+  ioslides_presentation: default
+  latex_engine: lualatex
+  slidy_presentation: default
+subtitle: Probability Demo - Hot Hand
+---
+
+## The Hot Hand
+
+- Probabilists debate whether the 'hot hand' is a real phenomenon
+- The 'hot hand' refers to the idea that if a person experiences success as a result of a probabilistic event, the next attempt has a higher probability of success
+- Tversky, Gilovich, Vallone (1985) disputed the 'hot hand theory' for college basketball players at Stanford and Cornell
+    - Attributed the fallacy to low numerical literacy among the general public and sports commentators
+    - Reflected a failure in understanding of probabilistic events and long-run frequencies
+- However, more recent research has indicated that the 'hot hand' may indeed exist in certain applications
+
+## Kobe's Hot Hand
+
+- Kobe Bryant earned the MVP award for the 2009 NBA Finals when he led the LA Lakers to victory over the Orlando Magic
+- At the time, many sports commentators remarked on his 'hot hand'.  Were they right?
+- Let's look at some data and find out:
+
+```{r echo = TRUE}
+download.file("http://www.openintro.org/stat/data/kobe.RData", destfile = "kobe.RData")
+load("kobe.RData")
+```
+
+## Kobe's Hot Hand
+
+- The data show us all of Kobe's attempted shots during the course of the five-game (best of seven) NBA Finals
+- In the 'basket' column, a 'H' indicates that Kobe made the shot, a 'M' indicates that he missed
+- A streak is defined as the number of H's that occur before a M
+- For example:
+```{r echo=FALSE}
+print(kobe$basket[1:9])
+```
+- In the first 9 rows, we have six streaks of lengths 1, 0, 2, 0, 0, and 0 respectively
+
+## Kobe's Hot Hand
+
+- Using the custom function 'calc_streak' (built in when you loaded the data, otherwise ask Aniket how to define the function) to calculate the distribution of Kobe's streak
+- Then plot it to get a sense of its shape
+
+## Kobe's Hot Hand
+
+```{r echo=TRUE}
+kobe_streak <- calc_streak(kobe$basket)
+barplot(table(kobe_streak), xlab="Streak Length", ylab = "Frequency", main="Barplot of Kobe's Streaks in 2009 NBA Finals")
+```
+
+## Independence
+
+- There are some longer streaks here, but how can we tell if there's a hot hand at work?
+- *Independence* is key to understanding this
+    - Two events are independent if the outcome of one does not affect the probability of the outcome of a second event
+- In our example, a hot hand would mean that making a basket affects the probability of making the second basket
+
+**Hot Hand**
+$$
+P(shot1=H)=.45
+$$
+
+$$
+P(shot2=H|shot1=H)=.6
+$$
+
+**No Hot Hand**
+$$
+P(shot1=H)=.45
+$$
+
+$$
+P(shot2=H|shot1=H)=.45
+$$
+
+## Independence
+
+- Before turning to Kobe, let's look at an example of independence that we know works, coin flips
+- Try this code:
+
+```{r echo=TRUE}
+outcomes <- c(0,1) #define what we're sampling from
+fair_coin <- sample(outcomes, size=10000, replace=TRUE) #sample 10,000 times with replacement drawing from all of the choices with equal probability
+S <- cumsum(fair_coin) #Add up all of the successes
+r <- S/(1:length(fair_coin)) #Divide the successes by the overall number of trials
+```
+
+## Independence
+
+- Now let's plot it (what happens as n gets bigger?):
+
+```{r echo=TRUE}
+plot(r, ylim=c(0,1),type="l")
+```
+
+## Independent Basketball Shooter
+
+- OK, so we see that as 'n' gets larger, the long-run frequency converges to the independent probability (.5 in the case of a coin)
+- Now let's do this with a hypothetical independent shooter who makes 45% of her shots:
+
+```{r echo=TRUE}
+outcomes <- c("H","M")
+sim_basket <- sample(outcomes, size=133, replace=TRUE, prob=c(.45,.55))
+```
+
+## Problems
+
+```{r echo=TRUE}
+indpt_shooter_streak <- calc_streak(sim_basket)
+indpt_shooter_streak <- data.frame(indpt_shooter_streak)
+```
+
+## Problems
+
+```{r echo=TRUE}
+par(mfrow=c(1,2))
+barplot(table(indpt_shooter_streak), xlab="Streak Length", ylab= "Frequency", main="Barplot of Independent Shooter's Streaks in 2009 NBA Finals")
+barplot(table(kobe_streak), xlab="Streak Length", ylab = "Frequency", main="Barplot of Kobe's Streaks in 2009 NBA Finals")
+```

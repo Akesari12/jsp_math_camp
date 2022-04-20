@@ -1,0 +1,65 @@
+---
+title: "R Problems"
+author: "Aniket Kesari"
+date: "August 2, 2016"
+output: pdf_document
+---
+
+# Variables and Vectors
+
+1. Create a variable named 'a' with a value of 1 and print the result
+
+2. Create a *numeric vector* named b with elements equal to 1, 2, and 3. 
+
+3. Create a *numeric vector* named c with elements equal to (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+4. Create *character vectors* containing (a) the names of the students in your cohort and (b) the values X1, X2, X3, and X4
+
+# Matrices
+
+1. Create a 3x3 matrix with '1s' along its diagonal (this is called the *identity* matrix)
+
+2. Create an empty 2x3 matrix
+
+3. Use the functions 'matrix' and 'seq' to create the following matrix:
+
+```{r echo=FALSE}
+A <- matrix(seq(1,6),2)
+print(A)
+```
+
+4. Use the function 'rep' and 'cbind' to create the following matrix:
+
+```{r echo=FALSE}
+b <- c(1,2,3)
+B <- cbind(b,rep(4,3))
+print(B)
+```
+
+5. Add a column with the values '10' and '11' to matrix A
+
+6. Add a row with values '10', '11', and '12' to matrix A
+
+7. Subset the first two rows of matrix B
+
+8. Replace the element in row 1 column 2 with '400' then replace '400 with 'NA'
+
+# Dataframes
+
+1. Create a dataframe with the following information about the PowerPuff Girls:
+
+```{r echo=FALSE}
+SSN <- c(204, 401, 101, 666, 777)
+Name <- c("Blossom","Buttercup","Bubbles","MojoJojo","Professor")
+Age <- c(7, 8, 6, 43, 56)
+Gender <- c(0,0,0,1,1)
+PowerPuffGirls <- data.frame(SSN, Name, Age, Gender)
+print(PowerPuffGirls)
+```
+
+2. Determine the number of characters
+
+3. Calculate the number of males and females
+
+4. What is the average age of the characters? What about the mean age of just the
+females?

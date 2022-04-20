@@ -1,0 +1,13 @@
+---
+title: "Hypothesis Testing and Regression Problems"
+author: "Aniket Kesari"
+date: "August 4, 2016"
+output: pdf_document
+---
+
+1. Load the "ChickWeight" data (built into R) into your environment. Regress weight over Time, weight over Diet, and weight over Time and Diet.  Are the results statistically significant?
+
+2. Load the "MASchools" data (load the "AER" package first). Use the "plot" function to make a scatterplot of the students eighth grade test scores on the y-axis, and the total expenditures per student on the x-axis. Regress the students' eighth grade test scores over the total expenditures per student. Now try to add the regression line to the plot. What conclusions can we draw from this line? Do we think we can meaningfully predict test scores based on expenditures within the range? What about outside the range?
+
+3. Now construct a multiple regression model that regresses eighth grade test scores over total expendtitures, student:teacher ratio, income, fourth grade test scores, teacher salary, and percent of English teachers. Do all of these variables make sense to include? Should we exclude some of these, include others, or both? Report your results using stargazer.
+
